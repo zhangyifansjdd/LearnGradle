@@ -49,8 +49,8 @@ install {
 
 //配置上传Bintray相关信息
 bintray {
-    user = 'zhangyifansjdd'
-    key = 'f0e7d799aa02cef13c2f51e9261ddeb7e1cf337d'
+    user = BINTRAY_USER
+    key = BINTRAY_KEY
 
     configurations = ['archives']
     pkg {
