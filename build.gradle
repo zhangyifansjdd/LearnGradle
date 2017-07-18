@@ -1,0 +1,129 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+//        maven {
+//            url uri('/repo')
+//        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+//        classpath 'com.zyf:myplugin:1.0.0'
+
+
+        // 将项目发布到JCenter 所需要的jar   添加依赖
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+//apply plugin :'com.zyf'
+
+
+
+
+// 应用插件
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+
+def baseUrl = 'https://github.com/AlexSmille'
+def siteUrl = baseUrl
+def gitUrl = "${baseUrl}/Android-Gradle-Demo"
+def issueUrl = "${baseUrl}/issues"
+
+
+
+install {
+    repositories {
+        mavenInstaller {
+            // This generates POM.xml with proper paramters
+            pom.project {
+
+                //添加项目描述
+                name 'Gradle Plugin for Android'
+                url siteUrl
+
+                //设置开源证书信息
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                //添加开发者信息
+                developers {
+                    developer {
+                        name 'Alex_Mahao'
+                        email 'zziamahao@s163.com'
+                    }
+                }
+
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+
+    }
+}
+
+
+//配置上传Bintray相关信息
+bintray {
+    user = BINTRAY_USER
+    key = BINTRAY_KEY
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven' // 上传到中央仓库的名称
+        name = 'tt' // 上传到jcenter 的项目名称
+        desc = 'test gradle' // 项目描述
+        websiteUrl = siteUrl
+        issueTrackerUrl = issueUrl
+        vcsUrl = gitUrl
+        labels = ['gradle', 'plugin']
+        licenses = ['Apache-2.0']
+        publish = true
+    }
+}
+
+
+
+
+
+allprojects {
+    repositories {
+        jcenter()
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    local = 'Hello-ZYF'
+}
+
+task printProperties << {
+    println local
+
+    println propertiesFile
+}
+
+task getPwd << {
+    println('获取密码')
+    ant.input(message: 'Enter keystore password:', addproperty: 'userInputPassword')
+    def pwd = ant.properties.userInputPassword
+    println("密码是:"+pwd)
+}
+
+
+

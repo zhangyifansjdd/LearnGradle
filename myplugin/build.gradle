@@ -1,0 +1,32 @@
+apply plugin :'groovy'
+apply plugin :'maven'
+
+group='com.zyf'
+version='1.0.0'
+
+dependencies{
+    compile gradleApi()
+    compile localGroovy()
+}
+
+
+//f0e7d799aa02cef13c2f51e9261ddeb7e1cf337d
+//上传插件到远程jcenter仓库-------------------------
+//apikey：f0e7d799aa02cef13c2f51e9261ddeb7e1cf337d
+
+
+//上传插件到远程jcenter仓库-------------------------
+
+//上传插件到本地maven仓库---------------------------
+//repositories {
+//    mavenCentral()
+//}
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: uri('../repo'))
+//        }
+//    }
+//}
+//上传代码到本地maven仓库---------------------------
